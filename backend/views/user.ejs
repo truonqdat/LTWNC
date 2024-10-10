@@ -1,0 +1,38 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i = 0; i < data.rows.length; i++) { %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= data.rows[i].user %></td>
+          <td><%= data.rows[i].fullname %></td>
+          <td><%= data.rows[i].address %></td>
+          <td>
+            <button class="btn btn-info" onclick="viewRow(<%= i %>)" title="Xem">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-primary" onclick="editRow(<%= i %>)" title="Sửa">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-danger" onclick="deleteRow(<%= i %>)" title="Xóa">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  
+  <div class="text-end">
+    <button class="btn btn-success me-2" onclick="addRow()" title="Thêm" style="margin: 10px 0;">
+      <i class="fas fa-plus"></i> Thêm
+    </button>
+  </div>

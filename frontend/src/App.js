@@ -1,14 +1,16 @@
 import "./App.css";
-// import Car from "./component/car";
-// import App1 from "./component/app1";
-// import Hello from "./component/hello/hello";
-import Login from "./component/login";
+import Header from "./component/header";
+import Footer from "./component/footer";
+import { Outlet } from "react-router-dom";
 
 function App() {
+  
   return (
     <>
 <div className="App">
-<Login/>
+<Header/>
+<Outlet/>
+<Footer/>
 </div>
     </>
    

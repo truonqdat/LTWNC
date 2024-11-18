@@ -1,20 +1,16 @@
 import express from "express";
 import dotenv from "dotenv/config";
 import viewEngine from "./viewEngine.js";
-import initWebRoute from "./route/webRoute.js";
-import initApiRoute from "./route/apiRouter.js";
-import { fileURLToPath } from "url";
-import path, { dirname } from "path";
+import initWebRoute from "./router/webRoute.js";
+import initApiRoute from "./router/apiRouter.js";
 import bodyParser from "body-parser";
 import RedisStore from "connect-redis";
 import session from "express-session";
 import { createClient } from "redis";
+import cors from 'cors';
+import cookieParser from 'cookie-parser'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const app = express();
-const port = process.env.port;
-
 app.use(
   bodyParser.urlencoded({
     extended: false,
@@ -39,10 +35,23 @@ app.use(
     secret: "keyboard cat",
   })
 );
+
+const corsOptions = () => {
+  return {
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    optionsSuccessStatus: 200
+  };
+};
+
+app.use(cors(corsOptions()));
+app.use(cookieParser())
+
 viewEngine(app);
-app.use(express.static(path.join(__dirname, "public")));
 initApiRoute(app);
 initWebRoute(app);
+
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
